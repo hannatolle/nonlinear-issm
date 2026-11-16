@@ -1,0 +1,117 @@
+{
+  "seed": 0,
+  "output_dir": "outputs/intervention_hardness/Saddle/m2",
+  "verbose": true,
+  "experiment": "TrainISSM",
+  "device": "auto",
+  "logging": {
+    "logger": "local",
+    "params": {}
+  },
+  "settings": {
+    "save_weights": true,
+    "T": 20,
+    "T_burn": 0,
+    "n_samples": 90,
+    "batch_size": 20,
+    "n_val_samples": 10,
+    "n_test_samples": 40,
+    "standardize": false,
+    "dt": 0.1,
+    "discrete": false,
+    "interventional": false,
+    "B_threshold": 0.001,
+    "x_init_sigma": 0.1,
+    "y_init_sigma": 0.1,
+    "min_logstd": -5.0,
+    "max_logstd": 5.0,
+    "n_epochs": 1000,
+    "lr": 0.005,
+    "weight_decay": 0.001,
+    "grad_clip": 1.0,
+    "beta": 1.0,
+    "beta_schedule": "linear",
+    "beta_warmup_fraction": 0.2,
+    "tau_warmup_fraction": 0.1,
+    "early_stopping": true,
+    "es_patience": 50,
+    "es_metric": "val_y_mae_rollout",
+    "es_min_delta": 0.0,
+    "D": 2,
+    "N": 10,
+    "M": 2
+  },
+  "components": {
+    "system": {
+      "kind": "Saddle",
+      "params": {
+        "a": -0.6,
+        "b": 2.0,
+        "c": -1.0,
+        "coh": 0.1,
+        "x_noise": 0.1,
+        "y_noise": 0.0,
+        "discrete": false,
+        "seed": 0,
+        "obs_nonlinearity": "tanh",
+        "alpha": [
+          1.0,
+          0.67,
+          0.33,
+          0.0
+        ]
+      }
+    },
+    "stimulator": {
+      "kind": "RandomStimulator",
+      "params": {
+        "stim_rate": 0.75,
+        "stim_d": 0.25,
+        "min_amplitude": -3.0,
+        "max_amplitude": 3.0,
+        "sigma": 0.25,
+        "stim_control_ratio": 1.0,
+        "seed": 0
+      }
+    },
+    "dynamics": {
+      "kind": "AnalyticMLPDynamics",
+      "params": {
+        "train_B": true,
+        "sparsity": 0.0,
+        "diagonal_cov": true,
+        "max_tau_B": 0.1,
+        "B_init": "eye",
+        "B_init_scale": 1.0,
+        "B_prior": "none",
+        "hidden_dim": 8,
+        "num_hidden_layers": 2,
+        "activation": "gelu",
+        "init_scale": 0.02
+      }
+    },
+    "emission": {
+      "kind": "ResMLPEmission",
+      "params": {
+        "H": 32,
+        "n_blocks": 2,
+        "p_dropout": 0.0
+      }
+    },
+    "likelihood": {
+      "kind": "NormalConditionalLikelihood",
+      "params": {
+        "diagonal_only": true
+      }
+    },
+    "recognition": {
+      "kind": "SharedLSTM",
+      "params": {
+        "H": 32,
+        "bidirectional": false,
+        "input_dropout": 0.0,
+        "obs_mask_prob": 0.0
+      }
+    }
+  }
+}

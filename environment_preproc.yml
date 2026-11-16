@@ -1,0 +1,13 @@
+# Only needed to preprocess the raw human iEEG recordings (scripts/huang/preprocess.py).
+name: camel_preproc
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - numpy=1.26.4
+  - scipy=1.13.1
+  - pandas=2.2.2
+  - mne=1.12.0
+  - pip
+  - pip:
+    - pymef==1.4.6

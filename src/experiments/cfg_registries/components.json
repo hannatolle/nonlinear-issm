@@ -1,0 +1,222 @@
+{
+    "VanDerPol": {
+      "import_path": "src.simulations.toymodels:VanDerPol",
+      "required": ["D", "M", "N"],
+      "defaults": {
+        "x_noise": 0.0,
+        "y_noise": 0.0,
+        "discrete": false,
+        "seed": 0,
+        "obs_nonlinearity": null,
+        "alpha": 1.0,
+        "mu": 0.5
+      }
+    },
+    "FitzHughNagumo": {
+      "import_path": "src.simulations.toymodels:FitzHughNagumo",
+      "required": ["D", "M", "N"],
+      "defaults": {
+        "x_noise": 0.0,
+        "y_noise": 0.0,
+        "discrete": false,
+        "seed": 0,
+        "obs_nonlinearity": null,
+        "alpha": 1.0,
+        "a": 0.7,
+        "b": 0.8,
+        "tau": 12.5,
+        "I_ext": 0.5
+      }
+    },
+    "Saddle": {
+      "import_path": "src.simulations.toymodels:Saddle",
+      "required": ["D", "M", "N"],
+      "defaults": {
+        "x_noise": 0.1,
+        "y_noise": 0.1,
+        "discrete": false,
+        "seed": 0,
+        "obs_nonlinearity": "tanh",
+        "alpha": 1.0,
+        "C_obs_scale": 1.0,
+        "a": -0.6,
+        "b": 2.0,
+        "c": -1.0,
+        "coh": 0.1
+      }
+    },
+    "LineAttractor": {
+      "import_path": "src.simulations.toymodels:LineAttractor",
+      "required": ["D", "M", "N"],
+      "defaults": {
+        "x_noise": 0.1,
+        "y_noise": 0.1,
+        "discrete": false,
+        "seed": 0,
+        "obs_nonlinearity": "tanh",
+        "alpha": 1.0,
+        "C_obs_scale": 1.0,
+        "l0_x1": 1.0,
+        "l0_x2": 1.0,
+        "r0_x1": 1.0,
+        "r0_x2": 0.0,
+        "eval1": -1.0,
+        "theta_deg": 45.0
+      }
+    },
+    "PointAttractor": {
+      "import_path": "src.simulations.toymodels:PointAttractor",
+      "required": ["D", "M", "N"],
+      "defaults": {
+        "x_noise": 0.1,
+        "y_noise": 0.1,
+        "discrete": false,
+        "seed": 0,
+        "obs_nonlinearity": "tanh",
+        "alpha": 1.0,
+        "C_obs_scale": 1.0,
+        "a1": -0.5,
+        "a2": -1.0
+      }
+    },
+  
+    "RegularStimulator": {
+      "import_path": "src.simulations.interventions:RegularStimulator",
+      "required": ["M"],
+      "defaults": {
+        "amplitude": 1.0,
+        "stim_d": 1.0,
+        "rest_d": 1.0,
+        "sigma": 0.5,
+        "amplitude_mode": "random",
+        "stim_control_ratio": 1.0
+      }
+    },
+    "RandomStimulator": {
+      "import_path": "src.simulations.interventions:RandomStimulator",
+      "required": ["M"],
+      "defaults": {
+        "stim_rate": 1.0,
+        "stim_d": 1.0,
+        "min_amplitude": 0.5,
+        "max_amplitude": 1.5,
+        "sigma": 0.0,
+        "stim_control_ratio": 1.0
+      }
+    },
+    "HybridStimulator": {
+      "import_path": "src.simulations.interventions:HybridStimulator",
+      "required": ["M"],
+      "defaults": {
+        "timing": "poisson",
+        "amplitude": "diverse",
+        "stim_rate": 1.0,
+        "rest_d": 1.0,
+        "stim_d": 0.25,
+        "min_amplitude": -1.0,
+        "max_amplitude": 1.0,
+        "constant_amp_frac": 0.5,
+        "sigma": 0.0,
+        "stim_control_ratio": 1.0
+      }
+    },
+  
+    "LinearDynamics": {
+      "import_path": "src.models.transition:LinearDynamics",
+      "required": ["D", "M", "dt"],
+      "defaults": {
+        "interventional": true,
+        "discrete": false,
+        "train_leak": false,
+        "train_B": false,
+        "B_init": "randn",
+        "B_init_scale": 1.0,
+        "sparsity": 0.0,
+        "B_prior": "none",
+        "diagonal_cov": false,
+        "B_threshold": 1e-3,
+        "max_tau_B": 0.05,
+        "x_init_sigma": 0.05,
+        "min_logstd": -5.0,
+        "max_logstd": 5.0,
+        "init_scale": 0.01,
+        "n_task_channels": 0
+      }
+    },
+    "AnalyticMLPDynamics": {
+      "import_path": "src.models.transition:AnalyticMLPDynamics",
+      "required": ["D", "M", "dt"],
+      "defaults": {
+        "interventional": true,
+        "discrete": false,
+        "train_leak": false,
+        "train_B": false,
+        "B_init": "randn",
+        "B_init_scale": 1.0,
+        "sparsity": 0.0,
+        "B_prior": "none",
+        "diagonal_cov": false,
+        "B_threshold": 1e-3,
+        "max_tau_B": 0.05,
+        "x_init_sigma": 0.05,
+        "min_logstd": -5.0,
+        "max_logstd": 5.0,
+        "hidden_dim": 10,
+        "num_hidden_layers": 1,
+        "activation": "gelu",
+        "init_scale": 0.01,
+        "n_task_channels": 0
+      }
+    },
+    "SiteEmbeddingB": {
+      "import_path": "src.models.transition:SiteEmbeddingB",
+      "required": ["drop_white_matter", "D", "M"],
+      "defaults": {
+        "n_task_channels": 0,
+        "hidden_dim": 32,
+        "n_layers": 2,
+        "activation": "gelu"
+      }
+    },
+    "ResMLPEmission": {
+      "import_path": "src.models.decoder:ResMLPEmission",
+      "required": ["D", "N"],
+      "defaults": {
+        "H": 32,
+        "n_blocks": 2,
+        "p_dropout": 0.1
+      }
+    },
+  
+
+    "NormalConditionalLikelihood": {
+      "import_path": "src.models.decoder:NormalConditionalLikelihood",
+      "required": ["N"],
+      "defaults": {
+        "y_init_sigma": 0.1,
+        "min_logstd": -5.0,
+        "max_logstd": 5.0
+      }
+    },
+    "PoissonConditionalLikelihood": {
+      "import_path": "src.models.decoder:PoissonConditionalLikelihood",
+      "required": ["N"],
+      "defaults": {}
+    },
+  
+    "SharedLSTM": {
+      "import_path": "src.models.encoder:SharedLSTM",
+      "required": ["D", "N", "M"],
+      "defaults": {
+        "H": 10,
+        "bidirectional": false,
+        "interventional": true,
+        "B_threshold": 1e-4,
+        "min_logstd": -5.0,
+        "max_logstd": 5.0,
+        "input_dropout": 0.0,
+        "obs_mask_prob": 0.0
+      }
+    }
+
+  }

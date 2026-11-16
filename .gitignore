@@ -1,0 +1,13 @@
+# Data and run outputs
+data
+outputs
+/figures/
+
+# Python
+**/__pycache__/
+
+# Optional wandb logs
+wandb/
+
+# Local notes
+todo.txt

@@ -1,0 +1,158 @@
+{
+  "TrainISSM": {
+    "required": ["D", "N", "M"],
+    "defaults": {
+      "save_weights": true,
+      "T": 10,
+      "T_burn": 2,
+      "n_samples": 25,
+      "batch_size": 5,
+      "n_val_samples": 5,
+      "n_test_samples": 0,
+      "standardize": true,
+      "dt": 0.01,
+      "discrete": false,
+      "interventional": true,
+      "B_threshold": 1e-4,
+      "x_init_sigma": 0.05,
+      "y_init_sigma": 0.1,
+      "min_logstd": -5.0,
+      "max_logstd": 5.0,
+      "n_epochs": 10,
+      "lr": 0.01,
+      "weight_decay": 0.001,
+      "grad_clip": 1.0,
+      "beta": 1.0,
+      "beta_schedule": "constant",
+      "beta_warmup_fraction": 0.0,
+      "tau_warmup_fraction": 0.2,
+      "early_stopping": false,
+      "es_patience": 20,
+      "es_metric": "val_y_mae_rollout",
+      "es_min_delta": 0.0
+    }
+  },
+  "EvalISSM": {
+    "required": ["group_dir"],
+    "defaults": {
+      "use_default_output_dir": true,
+      "latent_alignment": "B",
+      "n_samples": 100,
+      "T": 100,
+      "stim_amp_scaling": 1.2,
+      "max_jacobian_points": 500,
+      "T_encode": 5.0,
+      "stim_rate_min": 0.2,
+      "stim_rate_max": 0.8,
+      "stim_rate_n": 7
+    }
+  },
+  "TrainKianiISSM": {
+    "required": ["D", "N", "M"],
+    "defaults": {
+      "save_weights": true,
+      "debug": false,
+      "dataset_path": "data/macaque",
+      "condition": "all",
+      "fs": 30,
+      "trial_len": 60,
+      "compress_u": true,
+      "population_mean_u": false,
+      "binary_u": false,
+      "dt": 0.03,
+      "discrete": false,
+      "interventional": true,
+      "B_threshold": 1e-4,
+      "x_init_sigma": 0.05,
+      "y_init_sigma": 0.1,
+      "min_logstd": -5.0,
+      "max_logstd": 5.0,
+      "standardize": true,
+      "batch_size": 16,
+      "n_val_samples": 20,
+      "n_test_samples": 0,
+      "n_epochs": 100,
+      "lr": 0.001,
+      "weight_decay": 0.001,
+      "grad_clip": 1.0,
+      "beta": 1.0,
+      "beta_schedule": "linear",
+      "beta_warmup_fraction": 0.2,
+      "tau_warmup_fraction": 0.2,
+      "early_stopping": false,
+      "es_patience": 20,
+      "es_metric": "val_y_mae",
+      "es_min_delta": 0.0
+    }
+  },
+  "TrainHuangISSM": {
+    "required": ["D", "N", "M"],
+    "defaults": {
+      "save_weights": true,
+      "debug": false,
+      "preproc_dir": "data/huang_2023/preproc",
+      "subject": "sub-2",
+      "drop_bad": true,
+      "require_location": true,
+      "drop_white_matter": false,
+      "drop_artefact_trials": true,
+      "drop_residual_artefact_trials": true,
+      "resample_hz": 256,
+      "t_start_ms": -50,
+      "t_end_ms": 300,
+      "normalize_u": true,
+      "dt": 0.00390625,
+      "discrete": false,
+      "interventional": true,
+      "B_threshold": 1e-4,
+      "x_init_sigma": 0.05,
+      "y_init_sigma": 0.1,
+      "min_logstd": -5.0,
+      "max_logstd": 5.0,
+      "standardize": false,
+      "batch_size": 16,
+      "n_val_samples": 60,
+      "n_test_samples": 60,
+      "ood_test_channels": "",
+      "n_epochs": 100,
+      "lr": 0.001,
+      "weight_decay": 0.001,
+      "grad_clip": 1.0,
+      "beta": 1.0,
+      "beta_schedule": "linear",
+      "beta_warmup_fraction": 0.2,
+      "tau_warmup_fraction": 0.2,
+      "early_stopping": false,
+      "es_patience": 20,
+      "es_metric": "val_y_mae",
+      "es_min_delta": 0.0
+    }
+  },
+  "EvalKianiISSM": {
+    "required": ["group_dir"],
+    "defaults": {
+      "use_default_output_dir": true,
+      "steps_encode": null,
+      "min_steps_encode": 25
+    }
+  },
+  "EvalHuangISSM": {
+    "required": ["group_dir"],
+    "defaults": {
+      "use_default_output_dir": true,
+      "steps_encode": null,
+      "min_steps_encode": 10
+    }
+  },
+  "AttractorHuangISSM": {
+    "required": ["run_dir"],
+    "defaults": {
+      "use_default_output_dir": true,
+      "ood_only": false,
+      "virtual_stim_amp": 1.0,
+      "virtual_stim_T": 50,
+      "virtual_stim_n_ics": 100,
+      "plateau_start_ms": 100.0
+    }
+  }
+}

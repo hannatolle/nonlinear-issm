@@ -1,0 +1,86 @@
+{
+  "seed": 0,
+  "output_dir": "outputs/realdata/macaque/linear",
+  "verbose": true,
+  "experiment": "TrainKianiISSM",
+  "job_id": 0,
+  "device": "auto",
+  "logging": {
+    "logger": "local",
+    "params": {}
+  },
+  "settings": {
+    "save_weights": true,
+    "debug": false,
+    "dataset_path": "data/macaque",
+    "condition": "all",
+    "fs": 30,
+    "trial_len": 60,
+    "compress_u": true,
+    "population_mean_u": true,
+    "binary_u": true,
+    "dt": 0.03,
+    "discrete": false,
+    "interventional": true,
+    "B_threshold": 0.001,
+    "x_init_sigma": 0.05,
+    "y_init_sigma": null,
+    "min_logstd": -5.0,
+    "max_logstd": 5.0,
+    "standardize": false,
+    "batch_size": 25,
+    "n_val_samples": 10,
+    "n_test_samples": 60,
+    "n_epochs": 3000,
+    "lr": 0.003,
+    "weight_decay": 0.01,
+    "grad_clip": 1.0,
+    "beta": 1.0,
+    "beta_schedule": "linear",
+    "beta_warmup_fraction": 0.25,
+    "tau_warmup_fraction": 0.5,
+    "early_stopping": true,
+    "es_patience": 100,
+    "es_metric": "val_y_mae_rollout",
+    "es_min_delta": 0.0,
+    "D": [5, 12, 15, 20],
+    "N": 96,
+    "M": 12
+  },
+  "components": {
+    "dynamics": {
+      "kind": "LinearDynamics",
+      "params": {
+        "train_B": true,
+        "B_init": "eye_noisy",
+        "B_init_scale": 1.0,
+        "sparsity": 0.0,
+        "B_prior": "none",
+        "diagonal_cov": true,
+        "max_tau_B": 0.05,
+        "init_scale": null
+      }
+    },
+    "emission": {
+      "kind": "ResMLPEmission",
+      "params": {
+        "H": 32,
+        "n_blocks": 2,
+        "p_dropout": 0.1
+      }
+    },
+    "likelihood": {
+      "kind": "PoissonConditionalLikelihood",
+      "params": {}
+    },
+    "recognition": {
+      "kind": "SharedLSTM",
+      "params": {
+        "H": 32,
+        "bidirectional": true,
+        "input_dropout": 0.1,
+        "obs_mask_prob": 0.1
+      }
+    }
+  }
+}
